@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Future Makers Interview Assistant</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="my-4">Future Makers Interview Assistant</h1>
+                <div class="d-flex">
+                    <button class="btn btn-primary mr-2" onclick="showSection('InterviewSummary')">
+                        Interview Summary
+                    </button>
+                    <button class="btn btn-primary" onclick="showSection('assesment')">
+                        Assessment Questions
+                    </button>
+                </div>
+            </div>
+
+
+            <h4>
+                This project will prepare a lesson plan for making FutureMakers Spark,
+                the flying machines that are tailored to the target grade of the
+                learners. Also, assessment questions will be generated for the
+                learners to evaluate their understanding of the subject matter.
+            </h4>
+        </div>
+
+        <div class="d-flex">
+            <!-- Questions Section -->
+            <form id="questions-form">
+                <div id="questions" class="mr-5">
+                    <p>Please answer the following questions:</p>
+                    <label for="Q1">How much time do you have for this activity? (in minutes)</label>
+                    <input type="text" id="Q1" class="form-control my-2" />
+
+                    <label for="Q2">What grade(s) or age group(s) are your learners?</label>
+                    <select name="school_class" id="Q2" class="form-control my-2">
+                        <option value="kindergarten">Kindergarten (Age: 5-6)</option>
+                        <option value="elementary">Elementary School (Age: 6-11)</option>
+                        <option value="middle_school">Middle School (Age: 11-14)</option>
+                    </select>
+
+                    <label for="Q3">What is the learning environment (e.g., classroom, library,
+                        after-school)?</label>
+                    <input type="text" id="Q3" class="form-control my-2" />
+
+                    <label for="Q4">How confident are you in using hands-on projects?</label>
+                    <input type="range" id="Q4" name="rating" min="1" max="5" value="3" step="1"
+                        class="form-control my-2" oninput="this.nextElementSibling.value = this.value" />
+                    <output class="my-2">3</output>
+                    <br />
+
+                    <label for="Q5">Do you want to include an assessment? </label>
+                    <select name="assessment" id="Q5" class="form-control my-2">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+
+                    <label for="Q6">Do you want to teach learners the science of flight while building
+                        the model?</label>
+                    <select name="teach_science" id="Q6" class="form-control my-2">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+
+                    <label for="Q7">Do you want the learners to collaborate in groups for the extension
+                        project?</label>
+                    <input type="text" id="Q7" class="form-control my-2" />
+
+                    <button type="submit" class="btn btn-success mt-3">
+                        Create Lesson Plan
+                    </button>
+                </div>
+            </form>
+            <!-- Interview Summary Section -->
+            <div id="InterviewSummary">
+                <h2>Interview Summary</h2>
+                <div id="UsersResponse">
+                    <p>Users Response:</p>
+                    <ul id="userResponses">
+                        <li id="Q1Response"></li>
+                        <li id="Q2Response"></li>
+                        <li id="Q3Response"></li>
+                        <li id="Q4Response"></li>
+                        <li id="Q5Response"></li>
+                        <li id="Q6Response"></li>
+                        <li id="Q7Response"></li>
+                    </ul>
+
+
+                </div>
+                <div id="AI Response">
+                    <p>AI Response: </p>
+                    <p class="loading">Loading...</p>
+                    <div id="AIResponseText">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment Section -->
+            <div id="assesment">
+                <h2>Assessment Questions</h2>
+                <p class="loading">Loading...</p>
+
+                <ul id="assesment_questions"></ul>
+
+                <li class="p-3"><span>What is the main concept of the lesson plan?</span> <i
+                        class="bi bi-copy pointer"></i></li>
+                <li class="p-3"><span>What is the main concept of the lesson plan?</span> <i
+                        class="bi bi-copy pointer"></i></li>
+                <li class="p-3"><span>What is the main concept of the lesson plan?</span> <i
+                        class="bi bi-copy pointer"></i></li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <!-- Lesson Plan Section -->
+        <div id="LessonPlan">
+            <h2 class="text-center mt-5">Lesson Plan</h2>
+            <h2>Task Objective:</h2>
+            <p class="dynamic-text" id="objectiveText">Dynamic content will go here...</p>
+
+            <h2>Time Estimated:</h2>
+            <p class="dynamic-text" id="timeRequiredText">Dynamic content will go here...</p>
+
+            <h2>Prep Required:</h2>
+            <p class="dynamic-text" id="prepRequiredText">Dynamic content will go here...</p>
+
+            <h2>Materials:</h2>
+            <p class="materials" id="materialsText">Dynamic content will go here...</p>
+
+            <h2>Activity Steps:</h2>
+            <ol class="steps">
+                <li id="step1Text">Dynamic content will go here...</li>
+                <li id="step2Text">Dynamic content will go here...</li>
+                <li id="step3Text">Dynamic content will go here...</li>
+                <li id="step4Text">Dynamic content will go here...</li>
+                <li id="step5Text">Dynamic content will go here...</li>
+                <li id="step6Text">Dynamic content will go here...</li>
+            </ol>
+
+
+        </div>
+
+
+
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

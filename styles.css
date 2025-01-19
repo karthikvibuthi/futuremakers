@@ -1,0 +1,54 @@
+#InterviewSummary,
+#assesment,
+#userResponses {
+  display: none;
+}
+
+#output {
+  margin-top: 20px;
+}
+
+#app {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+input, select{
+    width: 60% ;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.plan h1 {
+    text-align: center;
+    color: #0066cc;
+  }
+
+.plan  h2 {
+    color: #00509e;
+    margin-top: 20px;
+  }
+
+  .dynamic-text {
+    background-color: #eaf4ff;
+    padding: 10px;
+    border-radius: 5px;
+    color: #003366;
+    font-weight: bold;
+  }
+
+  .materials {
+    background-color: #dfffd6;
+    padding: 10px;
+    border-radius: 5px;
+    color: #005f00;
+  }
+
+  .steps {
+    background-color: #fff3d6;
+    padding: 10px;
+    border-radius: 5px;
+    color: #805300;
+  }
