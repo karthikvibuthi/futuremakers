@@ -7,7 +7,7 @@ import os
 API_key = os.getenv("OPENAI_API_KEY")
 print(f"API Key: {API_key}")  # You can remove this line later in production
 
-client = OpenAI(api_key = API_key)
+client = OpenAI(api_key = str(API_key))
 
 # Initialize Flask App
 app = Flask(__name__)
