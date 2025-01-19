@@ -14,6 +14,7 @@ openai.api_key = api_key
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route("/")
 def home():
     return render_template("index.html")  # Render the web interface
@@ -27,8 +28,8 @@ def ask():
     )  # Get user input from POST request
     try:
         # Call OpenAI API
-        response = openai.ChatCompletion.create(
-            model="gpt-4",  # Correct model name
+        response = client.chat.completions.create(
+            model="gpt-4o",
             messages=[
                 {
                     "role": "system",
@@ -41,19 +42,16 @@ def ask():
                 }
             ],
             temperature=1,
-            max_tokens=2048,
+            max_completion_tokens=2048,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0,
         )
-
         # Extract the AI's response
-        answer = response.choices[0].message["content"]
+        answer = response.choices[0].message.content
         return jsonify({"answer": answer})  # Send response back to frontend
-
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5004)
