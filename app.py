@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-import openai
+from openai import OpenAI
 import os
 
 # Get API key from environment variable
@@ -8,7 +8,8 @@ api_key = os.getenv("OPENAI_API_KEY")
 print(f"API Key: {api_key}")  # You can remove this line later in production
 
 # Set OpenAI API Key
-openai.api_key = api_key
+api_key = api_key
+client = OpenAI(api_key = api_key)
 
 # Initialize Flask App
 app = Flask(__name__)
