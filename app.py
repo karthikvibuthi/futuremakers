@@ -5,7 +5,7 @@ import os
 
 # Get API key from environment variable
 API_key = os.getenv("OPENAI_API_KEY")
-print(f"API Key: {api_key}")  # You can remove this line later in production
+print(f"API Key: {API_key}")  # You can remove this line later in production
 
 client = OpenAI(api_key = API_key)
 
