@@ -256,10 +256,12 @@
 
                         // Extract the 'answer' from the result
                         const answerText = result.answer;
+                        const lessonPlanHTML = result["lesson-plan"];
+                        
 
                         // Set the 'answer' text to the LessonPlan element
-                        document.getElementById("LessonPlan").textContent = answerText;
-                        document.getElementById("AIResponseText").textContent = answerText;
+                        document.getElementById("LessonPlan").innerHTML = lessonPlanHTML;
+                        document.getElementById("AIResponseText").innerHTML = lessonPlanHTML;
 
                         // Also log the result in the output list
                         outputList.textContent = `API Response: ${JSON.stringify(result)}`;
