@@ -191,44 +191,11 @@
 
         <!-- Assessment Section -->
         <div id="assesment">
-          <h2>Assessment Questions</h2>
-          <p class="loading">Loading...</p>
-          <ul id="assesment_questions"></ul>
         </div>
       </div>
 
       <!-- Lesson Plan Section -->
       <div id="LessonPlan">
-        <h2 class="text-center mt-5">Lesson Plan</h2>
-        <h2>Task Objective:</h2>
-        <p class="dynamic-text" id="objectiveText">
-          Dynamic content will go here...
-        </p>
-
-        <h2>Time Estimated:</h2>
-        <p class="dynamic-text" id="timeRequiredText">
-          Dynamic content will go here...
-        </p>
-
-        <h2>Prep Required:</h2>
-        <p class="dynamic-text" id="prepRequiredText">
-          Dynamic content will go here...
-        </p>
-
-        <h2>Materials:</h2>
-        <p class="materials" id="materialsText">
-          Dynamic content will go here...
-        </p>
-
-        <h2>Activity Steps:</h2>
-        <ol class="steps">
-          <li id="step1Text">Dynamic content will go here...</li>
-          <li id="step2Text">Dynamic content will go here...</li>
-          <li id="step3Text">Dynamic content will go here...</li>
-          <li id="step4Text">Dynamic content will go here...</li>
-          <li id="step5Text">Dynamic content will go here...</li>
-          <li id="step6Text">Dynamic content will go here...</li>
-        </ol>
       </div>
     </div>
 
@@ -321,6 +288,7 @@
             if (response.ok) {
               const result = await response.json();
               console.log("API Response:", result);
+              document.getElementById("LessonPlan").textContent = result;
               outputList.textContent = `API Response: ${JSON.stringify(
                 result
               )}`;
