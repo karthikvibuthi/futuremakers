@@ -39,59 +39,6 @@ def ask():
                         }
                     ],
                 },
-                {"role": "user", "content": [{"type": "text", "text": "hello\n"}]},
-                {
-                    "role": "assistant",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": '{\n   "user": "",\n   "assistant": "Please tell me about your class:\\n1. What grade level do you teach?",\n   "lessonplan": "",\n   "assessment": ""\n}',
-                        }
-                    ],
-                },
-                {
-                    "role": "user",
-                    "content": [{"type": "text", "text": "kindergarden\n"}],
-                },
-                {
-                    "role": "assistant",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": '{\n   "user": "kindergarten",\n   "assistant": "How many students are in your class?",\n   "lessonplan": "",\n   "assessment": ""\n}',
-                        }
-                    ],
-                },
-                {"role": "user", "content": [{"type": "text", "text": "30"}]},
-                {
-                    "role": "assistant",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": '{\n   "user": "30",\n   "assistant": "What is your typical class duration?",\n   "lessonplan": "",\n   "assessment": ""\n}',
-                        }
-                    ],
-                },
-                {"role": "user", "content": [{"type": "text", "text": "50"}]},
-                {
-                    "role": "assistant",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": '{\n   "user": "50",\n   "assistant": "Do you have any students with special needs or ELL students?",\n   "lessonplan": "",\n   "assessment": ""\n}',
-                        }
-                    ],
-                },
-                {"role": "user", "content": [{"type": "text", "text": "yes"}]},
-                {
-                    "role": "assistant",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": '{\n   "user": "yes",\n   "assistant": "Regarding available resources:\\n- What physical space do you have access to?",\n   "lessonplan": "",\n   "assessment": ""\n}',
-                        }
-                    ],
-                },
             ],
             response_format={"type": "text"},
             temperature=1,
