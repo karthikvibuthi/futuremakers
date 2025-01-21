@@ -79,30 +79,26 @@
       <div class="d-flex justify-content-between align-items-center">
         <h1 class="my-4">Future Makers Interview Assistant</h1>
         <div class="d-flex">
-          <button
-            class="btn btn-primary mr-2"
-            onclick="showSection('InterviewSummary')"
-          >
-            Interview Summary
-          </button>
+          <h4>
+            This project will prepare a lesson plan for making FutureMakers
+            Spark, the flying machines that are tailored to the target grade of
+            the learners. Also, assessment questions will be generated for the
+            learners to evaluate their understanding of the subject matter.
+          </h4>
         </div>
       </div>
-
-      <h4>
-        This project will prepare a lesson plan for making FutureMakers Spark,
-        the flying machines that are tailored to the target grade of the
-        learners. Also, assessment questions will be generated for the learners
-        to evaluate their understanding of the subject matter.
-      </h4>
 
       <!-- Interview Section -->
       <div class="section" id="interview-section">
         <h2>Interview</h2>
+        <button onclick="sendInitialMessage()" id="initiator">
+          Initiate Interview
+        </button>
         <div id="chat-container">
           <!-- Dynamic chat messages will appear here -->
         </div>
         <p id="loader">Loading AI response ...</p>
-        <div class="textarea-container">
+        <div id="textarea-container" class="textarea-container">
           <textarea
             id="user-input"
             rows="2"
@@ -126,28 +122,43 @@
     </div>
 
     <script>
-      const apiResponse = {
-        user: "",
-        assistant:
-          "Please tell me about your class: What grade level do you teach?",
-        "lesson-plan": "",
-        assessment: "",
-      };
-
       const chatContainer = document.getElementById("chat-container");
       const loader = document.getElementById("loader");
+      const textarea = document.getElementById("textarea-container");
+      textarea.style.display = "none";
 
       function renderChat(role, message) {
         const chatBubble = document.createElement("div");
-        chatBubble.className = role;
-        chatBubble.innerText = message;
+        chatBubble.className = "chat-bubble";
+        chatBubble.innerText = `${role}: ${message}`;
+
+        // Add specific styles based on the role
+        if (role === "user") {
+          chatBubble.style.justifyContent = "flex-start";
+          chatBubble.style.backgroundColor = "#d1e7dd"; // Light green for user
+          chatBubble.style.color = "#0f5132"; // Dark green text
+          chatBubble.style.alignSelf = "flex-start";
+        } else if (role === "assistant") {
+          chatBubble.style.justifyContent = "flex-end";
+          chatBubble.style.backgroundColor = "#cff4fc"; // Light blue for assistant
+          chatBubble.style.color = "#055160"; // Dark blue text
+          chatBubble.style.alignSelf = "flex-end";
+        }
+
+        // Additional styling
+        chatBubble.style.padding = "10px";
+        chatBubble.style.margin = "5px";
+        chatBubble.style.borderRadius = "10px";
+        chatBubble.style.maxWidth = "70%";
+        chatBubble.style.display = "inline-block";
         chatContainer.appendChild(chatBubble);
         chatContainer.scrollTop = chatContainer.scrollHeight;
       }
-
-      function sendUserMessage() {
+      function sendInitialMessage() {
         const userInput = document.getElementById("user-input");
-        const userMessage = userInput.value.trim();
+        const userMessage = "Lets start the interview for lesson plan";
+        const textarea = document.getElementById("textarea-container");
+        const initiator = document.getElementById("initiator");
         if (!userMessage) return;
 
         renderChat("user", userMessage);
@@ -162,14 +173,15 @@
         })
           .then((response) => response.json())
           .then((data) => {
+            data = JSON.parse(data);
             console.log(".json", data);
-            console.log("JSON Parse", JSON.parse(data));
-            console.log("user", JSON.parse(data).user);
-            console.log("assistant", JSON.parse(data).assistant);
+            console.log("assistant", data.assistant);
 
+            textarea.style.display = "block";
             loader.style.display = "none"; // Hide loader
-            if (data.type === "assistant") {
-              renderChat("assistant", data.message);
+            initiator.style.display = "none"; // Hide initiator
+            if (data.assistant) {
+              renderChat("assistant", data.assistant);
             }
             if (data.lessonplan) {
               document
@@ -191,8 +203,49 @@
           });
       }
 
-      // Initial assistant prompt
-      renderChat("assistant", apiResponse.assistant);
+      function sendUserMessage() {
+        const userInput = document.getElementById("user-input");
+        const userMessage = userInput.value.trim();
+        if (!userMessage) return;
+
+        renderChat("user", userMessage);
+        userInput.value = ""; // Clear input
+
+        loader.style.display = "block"; // Show loader
+
+        fetch("https://karthikvibuthiportfolio.com/futuremakers/lesson-plan", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ "interview-answers": userMessage }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(".json", data);
+            data = JSON.parse(data);
+
+            loader.style.display = "none"; // Hide loader
+            if (data.assistant) {
+              renderChat("assistant", data.assistant);
+            }
+            if (data.lessonplan) {
+              document
+                .getElementById("lesson-plan-section")
+                .classList.remove("hidden");
+              document.getElementById("lesson-plan").innerText =
+                data.lessonplan;
+            }
+            if (data.assessment) {
+              document
+                .getElementById("assessment-section")
+                .classList.remove("hidden");
+              document.getElementById("assessment").innerText = data.assessment;
+            }
+          })
+          .catch((err) => {
+            loader.style.display = "none"; // Hide loader
+            console.error("Error:", err);
+          });
+      }
     </script>
   </body>
 </html>
