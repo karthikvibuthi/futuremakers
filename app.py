@@ -22,7 +22,7 @@ def home():
 # Define Flask Routes
 @app.route("/lesson-plan", methods=["POST"])
 def ask():
-    history = request.json.get("messages_current")  # Get user input from POST request
+    history = request.get_json("messages_current")  # Get user input from POST request
     messages = [
         {
             "role": "system",
