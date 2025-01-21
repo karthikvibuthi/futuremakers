@@ -247,7 +247,7 @@
         fetch("https://karthikvibuthiportfolio.com/futuremakers/lesson-plan", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages_current: messages }),
+          body: JSON.stringify({ messages: messages }),
         })
           .then((response) => response.json())
           .then((data) => {

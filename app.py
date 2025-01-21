@@ -22,7 +22,6 @@ def home():
 # Define Flask Routes
 @app.route("/lesson-plan", methods=["POST"])
 def ask():
-    history = request.get_json("messages_current")  # Get user input from POST request
     messages = [
         {
             "role": "system",
@@ -34,7 +33,8 @@ def ask():
             ],
         },
     ]
-    messages.append(history)
+    history = request.get_json().get("messages", [])
+    messages.extend(history)  # Get user input from POST request
     try:
         # Call OpenAI API
         response = client.chat.completions.create(
