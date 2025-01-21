@@ -127,6 +127,8 @@
       const textarea = document.getElementById("textarea-container");
       textarea.style.display = "none";
 
+      let messages = [];
+
       function renderChat(role, message) {
         const chatBubble = document.createElement("div");
         chatBubble.className = "chat-bubble";
@@ -160,6 +162,15 @@
         const textarea = document.getElementById("textarea-container");
         const initiator = document.getElementById("initiator");
         if (!userMessage) return;
+        messages.push({
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: userMessage,
+            },
+          ],
+        });
 
         renderChat("user", userMessage);
         userInput.value = ""; // Clear input
@@ -169,13 +180,23 @@
         fetch("https://karthikvibuthiportfolio.com/futuremakers/lesson-plan", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ "interview-answers": userMessage }),
+          body: JSON.stringify({ messages: messages }),
         })
           .then((response) => response.json())
           .then((data) => {
             data = JSON.parse(data);
             console.log(".json", data);
             console.log("assistant", data.assistant);
+            // Add assistant response to conversation history
+            messages.push({
+              role: "assistant",
+              content: [
+                {
+                  type: "text",
+                  text: JSON.stringify(data.assistant),
+                },
+              ],
+            });
 
             textarea.style.display = "block";
             loader.style.display = "none"; // Hide loader
@@ -209,6 +230,16 @@
         if (!userMessage) return;
 
         renderChat("user", userMessage);
+        messages.push({
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: userMessage,
+            },
+          ],
+        });
+
         userInput.value = ""; // Clear input
 
         loader.style.display = "block"; // Show loader
@@ -216,7 +247,7 @@
         fetch("https://karthikvibuthiportfolio.com/futuremakers/lesson-plan", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ "interview-answers": userMessage }),
+          body: JSON.stringify({ messages_current: messages }),
         })
           .then((response) => response.json())
           .then((data) => {
@@ -225,6 +256,16 @@
 
             loader.style.display = "none"; // Hide loader
             if (data.assistant) {
+              // Add assistant response to conversation history
+              messages.push({
+                role: "assistant",
+                content: [
+                  {
+                    type: "text",
+                    text: JSON.stringify(data.assistant),
+                  },
+                ],
+              });
               renderChat("assistant", data.assistant);
             }
             if (data.lessonplan) {
