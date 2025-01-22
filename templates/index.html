@@ -163,7 +163,8 @@
         const userMessage = "Lets start the interview for lesson plan";
         const textarea = document.getElementById("textarea-container");
         const initiator = document.getElementById("initiator");
-        if (!userMessage) return;
+
+         if (!userMessage) return;
         messages.push({
           role: "user",
           content: [
@@ -294,22 +295,23 @@
               renderChat("assistant", data);
             }
             if (data.lessonplan) {
-              if (length(data.lessonplan) >= length(lessonplan)) {
+              if (data.lessonplan.length >= lessonplan.length) {
                 lessonplan = data.lessonplan;
                 document
                   .getElementById("lesson-plan-section")
                   .classList.remove("hidden");
-                document.getElementById("lesson-plan").innerText =
+                document.getElementById("lesson-plan").innerHTML =
                   data.lessonplan;
               }
             }
+
             if (data.assessment) {
-              if (length(data.assessment) >= length(assessment)) {
+              if (data.assessment.length >= assessment.length) {
                 assessment = data.assessment;
                 document
                   .getElementById("assessment-section")
                   .classList.remove("hidden");
-                document.getElementById("assessment").innerText =
+                document.getElementById("assessment").innerHTML =
                   data.assessment;
               }
             }
