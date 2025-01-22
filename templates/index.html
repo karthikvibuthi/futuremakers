@@ -128,6 +128,8 @@
       textarea.style.display = "none";
 
       let messages = [];
+      let lessonplan = "none";
+      let assessment = "none";
 
       function renderChat(role, message) {
         const chatBubble = document.createElement("div");
@@ -225,6 +227,7 @@
       }
 
       function sendUserMessage() {
+        constant_instruction = `strictly format your response as JSON, like this:\n{  \n   "user": "users latest answer"\n   "assistant": "your next question"\n   "lessonplan": "Once you generate lesson plan"\n   "assessment": "Once you generate assessment"\n   \n}`;
         const userInput = document.getElementById("user-input");
         const userMessage = userInput.value.trim();
         if (!userMessage) return;
@@ -236,6 +239,15 @@
             {
               type: "text",
               text: userMessage,
+            },
+          ],
+        });
+        messages.push({
+          role: "system",
+          content: [
+            {
+              type: "text",
+              text: constant_instruction,
             },
           ],
         });
@@ -269,11 +281,8 @@
                 ],
               });
               renderChat("assistant", data.assistant);
-            }
-
-            else if(!data.assistant)
-            {
-                messages.push({
+            } else if (!data.assistant) {
+              messages.push({
                 role: "assistant",
                 content: [
                   {
@@ -285,17 +294,24 @@
               renderChat("assistant", data);
             }
             if (data.lessonplan) {
-              document
-                .getElementById("lesson-plan-section")
-                .classList.remove("hidden");
-              document.getElementById("lesson-plan").innerText =
-                data.lessonplan;
+              if (length(data.lessonplan) >= length(lessonplan)) {
+                lessonplan = data.lessonplan;
+                document
+                  .getElementById("lesson-plan-section")
+                  .classList.remove("hidden");
+                document.getElementById("lesson-plan").innerText =
+                  data.lessonplan;
+              }
             }
             if (data.assessment) {
-              document
-                .getElementById("assessment-section")
-                .classList.remove("hidden");
-              document.getElementById("assessment").innerText = data.assessment;
+              if (length(data.assessment) >= length(assessment)) {
+                assessment = data.assessment;
+                document
+                  .getElementById("assessment-section")
+                  .classList.remove("hidden");
+                document.getElementById("assessment").innerText =
+                  data.assessment;
+              }
             }
           })
           .catch((err) => {
