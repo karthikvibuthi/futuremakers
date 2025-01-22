@@ -252,6 +252,8 @@
           .then((response) => response.json())
           .then((data) => {
             console.log(".json", data);
+            console.log("assistant", data.assistant);
+            console.log("messages", messages);
             data = JSON.parse(data);
 
             loader.style.display = "none"; // Hide loader
@@ -267,6 +269,20 @@
                 ],
               });
               renderChat("assistant", data.assistant);
+            }
+
+            else if(!data.assistant)
+            {
+                messages.push({
+                role: "assistant",
+                content: [
+                  {
+                    type: "text",
+                    text: JSON.stringify(data),
+                  },
+                ],
+              });
+              renderChat("assistant", data);
             }
             if (data.lessonplan) {
               document
