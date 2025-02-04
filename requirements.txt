@@ -2,3 +2,4 @@ openai
 flask
 gunicorn
 flask-cors
+pymongo
