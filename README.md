@@ -14,29 +14,14 @@ This project is an AI-powered interview assistant designed to help educators dev
 - **LangChain**  
 - **Hugging Face Models**  
 - **Amazon DocumentDB**  
-- **Flask**  
+- **Flask**   
 
-## Setup Instructions  
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/your-username/repository-name.git  
-   cd repository-name  
-   ```  
-2. Install dependencies:  
-   ```bash
-   pip install -r requirements.txt  
-   ```  
-3. Run the Flask backend:  
-   ```bash
-   python app.py  
-   ```  
-4. Access the UI via the provided frontend interface.  
-
-## Contributing  
-Contributions are welcome! Feel free to open issues or submit pull requests to improve the project.  
-
+## Try the web interface
+https://karthikvibuthiportfolio.com/futuremakers/
 ## License  
 This project is Associated with FutureMakers 
+
+
 
 
 
